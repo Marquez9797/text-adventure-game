@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>文字冒险小游戏</title>
+    <style>
+        body{background:#1a1a1a;color:#eee;font-size:18px;padding:30px;line-height:1.8}
+        #result{white-space:pre-wrap;margin-bottom:20px}
+        input{padding:8px;font-size:16px;width:300px}
+    </style>
+</head>
+<body>
+<div id="result"></div>
+<input type="text" id="ipt" placeholder="在这里输入选择后按回车">
+
+<script>
+const res = document.getElementById('result');
+const ipt = document.getElementById('ipt');
+
+function show(text){
+    res.innerText += text + '\n';
+}
+
+show(`你走进一间昏暗的房间，眼前有两扇门。
+你要选择从1号门还是2号门进去？
+> `);
+
+ipt.focus();
+ipt.onkeydown = function(e){
+    if(e.key === 'Enter'){
+        let door = ipt.value.trim();
+        show(door + '\n');
+        ipt.value = '';
+        if(door === "1"){
+            show(`房间里有一头大熊正在吃芝士蛋糕，你打算怎么做？
+1. 拿走蛋糕。
+2. 对着大熊大喊大叫。
+> `);
+            ipt.onkeydown = function(e){
+                if(e.key === 'Enter'){
+                    let bear = ipt.value.trim();
+                    show(bear + '\n');
+                    if(bear === "1"){
+                        show("大熊直接咬烂了你的脸，干得漂亮！");
+                    }else if(bear === "2"){
+                        show("大熊咬断了你的双腿，干得漂亮！");
+                    }else{
+                        show(`好吧，你选择的${bear}这个做法还算靠谱，大熊直接吓跑了。`);
+                    }
+                    ipt.disabled = true;
+                }
+            }
+        }else if(door === "2"){
+            show(`你望向无尽深渊，直视着克苏鲁的眼眸。
+1. 蓝莓。
+2. 黄色夹克晾衣夹。
+3. 能奏响旋律的通灵左轮手枪。
+> `);
+            ipt.onkeydown = function(e){
+                if(e.key === 'Enter'){
+                    let insanity = ipt.value.trim();
+                    show(insanity + '\n');
+                    if(insanity === "1" || insanity === "2"){
+                        show("你的身体勉强存活下来，脑子却已经变成一团果冻，干得漂亮！");
+                    }else{
+                        show("无尽的疯狂侵蚀了你，你的双眼腐烂成一滩淤泥，干得漂亮！");
+                    }
+                    ipt.disabled = true;
+                }
+            }
+        }else{
+            show("你四处跌跌撞撞，不小心摔倒在一把小刀上，一命呜呼，干得漂亮！");
+            ipt.disabled = true;
+        }
+    }
+}
+</script>
+</body>
+</html>
